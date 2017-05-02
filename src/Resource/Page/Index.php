@@ -34,6 +34,8 @@ class Index extends ResourceObject
     }
 
     /**
+     * Show todos list
+     *
      * @Embed(rel="todos", src="app://self/todos{?status}")
      */
     public function onGet(string $status = null) : ResourceObject
@@ -45,9 +47,11 @@ class Index extends ResourceObject
     }
 
     /**
+     * Register todo item
+     *
      * @FormValidation(form="todoForm", onFailure="onFailure")
-     * @Link(rel="create", href="app://self/todo", method="post")
      * @Refresh(uri="page://self/index")
+     * @Link(rel="create", href="app://self/todo", method="post")
      */
     public function onPost(string $title) : ResourceObject
     {
@@ -59,7 +63,7 @@ class Index extends ResourceObject
         return $this;
     }
 
-    public function onFailure()
+    public function onFailure() : ResourceObject
     {
         $this->code = StatusCode::BAD_REQUEST;
 
